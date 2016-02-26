@@ -1,0 +1,16 @@
+{
+  "name": "react-lesson",
+  "version": "1.0.0",
+  "description": "React, redux, babel tutorial",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/6artisans/react-lesson.git"
+  },
+  "author": "6 Artisans",
+  "bugs": {
+    "url": "https://github.com/6artisans/react-lesson/issues"
+  },
+  "homepage": "https://github.com/6artisans/react-lesson#readme"
+}

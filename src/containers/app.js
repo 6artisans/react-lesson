@@ -4,16 +4,16 @@ var App = React.createClass({
   getInitialState: function() {
     return {
       todos: [
-        {text: "Welcome to React Lesson", completed: true},
-        {text: "Kick off repository with lesson"},
-        {text: "Run development server"}
+        {id: 1, text: "Welcome to React Lesson", completed: true},
+        {id: 2, text: "Kick off repository with lesson"},
+        {id: 3, text: "Run development server"}
       ]
     }
   },
 
   renderTodo: function(todo) {
     return (
-      <li className={todo.completed && "completed"}>
+      <li key={todo.id} className={todo.completed && "completed"}>
         <div className="view">
           <input className="toggle" type="checkbox" checked={!!todo.completed} />
           <label>{todo.text}</label>

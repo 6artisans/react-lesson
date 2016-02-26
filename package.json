@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "React, redux, babel tutorial",
   "scripts": {
+    "start": "wserve",
+    "build": "NODE_ENV=production rm -rf dist && wbuild"
   },
   "repository": {
     "type": "git",
@@ -12,5 +14,8 @@
   "bugs": {
     "url": "https://github.com/6artisans/react-lesson/issues"
   },
-  "homepage": "https://github.com/6artisans/react-lesson#readme"
+  "homepage": "https://github.com/6artisans/react-lesson#readme",
+  "devDependencies": {
+    "webpackman": "0.2.1"
+  }
 }

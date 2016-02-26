@@ -1,7 +1,7 @@
-require('./index.css')
+import './index.css'
 
-var React = require('react')
-var ReactDOM = require('react-dom')
-var App = require('./containers/app')
+import React from 'react'
+import {render} from 'react-dom'
+import App from './containers/app'
 
-ReactDOM.render(<App />, document.getElementById("todos-app-root"))
+render(<App />, document.getElementById("todos-app-root"))

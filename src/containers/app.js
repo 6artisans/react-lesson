@@ -1,17 +1,18 @@
-var React = require('react')
+import React from 'react'
 
-var App = React.createClass({
-  getInitialState: function() {
-    return {
+export default class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
       todos: [
         {id: 1, text: "Welcome to React Lesson", completed: true},
         {id: 2, text: "Kick off repository with lesson"},
         {id: 3, text: "Run development server"}
       ]
     }
-  },
+  }
 
-  renderTodo: function(todo) {
+  renderTodo(todo) {
     return (
       <li key={todo.id} className={todo.completed && "completed"}>
         <div className="view">
@@ -21,9 +22,9 @@ var App = React.createClass({
         </div>
       </li>
     )
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <section className="todoapp">
         <header className="header">
@@ -56,6 +57,4 @@ var App = React.createClass({
       </section>
     )
   }
-})
-
-module.exports = App
+}

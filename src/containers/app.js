@@ -11,6 +11,9 @@ export default class App extends React.Component {
       ],
       newTodo: ""
     }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
   }
 
   handleChange(event) {
@@ -64,8 +67,8 @@ export default class App extends React.Component {
           <input value={this.state.newTodo}
                  className="new-todo"
                  placeholder="What needs to be done?"
-                 onChange={(event) => this.handleChange(event)}
-                 onKeyDown={(event) => this.handleKeyDown(event)}
+                 onChange={this.handleChange}
+                 onKeyDown={this.handleKeyDown}
                  autofocus />
         </header>
         <section className="main">

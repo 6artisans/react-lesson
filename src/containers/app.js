@@ -1,6 +1,28 @@
 var React = require('react')
 
 var App = React.createClass({
+  getInitialState: function() {
+    return {
+      todos: [
+        {text: "Welcome to React Lesson", completed: true},
+        {text: "Kick off repository with lesson"},
+        {text: "Run development server"}
+      ]
+    }
+  },
+
+  renderTodo: function(todo) {
+    return (
+      <li className={todo.completed && "completed"}>
+        <div className="view">
+          <input className="toggle" type="checkbox" checked={!!todo.completed} />
+          <label>{todo.text}</label>
+          <button className="destroy"></button>
+        </div>
+      </li>
+    )
+  },
+
   render: function() {
     return (
       <section className="todoapp">
@@ -12,27 +34,7 @@ var App = React.createClass({
           <input className="toggle-all" type="checkbox" />
           <label htmlFor="toggle-all">Mark all as complete</label>
           <ul className="todo-list">
-            <li className="completed">
-              <div className="view">
-                <input className="toggle" type="checkbox" checked/>
-                <label>Welcome to React Lesson</label>
-                <button className="destroy"></button>
-              </div>
-            </li>
-            <li className="">
-              <div className="view">
-                <input className="toggle" type="checkbox" />
-                <label>Kick off repository with lesson</label>
-                <button className="destroy"></button>
-              </div>
-            </li>
-            <li className="">
-              <div className="view">
-                <input className="toggle" type="checkbox" />
-                <label>Run development server</label>
-                <button className="destroy"></button>
-              </div>
-            </li>
+            {this.state.todos.map(this.renderTodo)}
           </ul>
         </section>
         <footer className="footer">

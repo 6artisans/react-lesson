@@ -59,6 +59,18 @@ export default class App extends React.Component {
     )
   }
 
+  renderCounter() {
+    const uncompletedTodos = this.state.todos.filter((todo) => !todo.complete)
+    const uncompletedTodosCount = uncompletedTodos.length
+
+    return (
+      <span className="todo-count">
+        <strong>{uncompletedTodosCount}</strong>
+        {uncompletedTodosCount == 1 ? " item" : " items"} left
+      </span>
+    )
+  }
+
   render() {
     return (
       <section className="todoapp">
@@ -79,7 +91,7 @@ export default class App extends React.Component {
           </ul>
         </section>
         <footer className="footer">
-          <span className="todo-count"></span>
+          {this.renderCounter()}
           <ul className="filters">
             <li>
               <a href="#/" className="selected">All</a>

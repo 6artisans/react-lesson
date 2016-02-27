@@ -1,4 +1,7 @@
 import React from 'react'
+import NewTodo from '../components/new_todo'
+import Todos from '../components/todos'
+import TodosCounter from '../components/todos_counter'
 
 export default class App extends React.Component {
   constructor() {
@@ -47,51 +50,22 @@ export default class App extends React.Component {
     this.setState({ todos: todos })
   }
 
-  renderTodo(todo) {
-    return (
-      <li key={todo.id} className={todo.completed && "completed"}>
-        <div className="view">
-          <input className="toggle" type="checkbox" checked={!!todo.completed} />
-          <label>{todo.text}</label>
-          <button className="destroy"></button>
-        </div>
-      </li>
-    )
-  }
-
-  renderCounter() {
-    const uncompletedTodos = this.state.todos.filter((todo) => !todo.complete)
-    const uncompletedTodosCount = uncompletedTodos.length
-
-    return (
-      <span className="todo-count">
-        <strong>{uncompletedTodosCount}</strong>
-        {uncompletedTodosCount == 1 ? " item" : " items"} left
-      </span>
-    )
-  }
-
   render() {
     return (
       <section className="todoapp">
         <header className="header">
           <h1>todos</h1>
-          <input value={this.state.newTodo}
-                 className="new-todo"
-                 placeholder="What needs to be done?"
-                 onChange={this.handleChange}
-                 onKeyDown={this.handleKeyDown}
-                 autofocus />
+          <NewTodo value={this.state.newTodo}
+                   onChange={this.handleChange}
+                   onSubmit={this.handleKeyDown} />
         </header>
         <section className="main">
           <input className="toggle-all" type="checkbox" />
           <label htmlFor="toggle-all">Mark all as complete</label>
-          <ul className="todo-list">
-            {this.state.todos.map(this.renderTodo)}
-          </ul>
+          <Todos todos={this.state.todos} />
         </section>
         <footer className="footer">
-          {this.renderCounter()}
+          <TodosCounter todos={this.state.todos} />
           <ul className="filters">
             <li>
               <a href="#/" className="selected">All</a>

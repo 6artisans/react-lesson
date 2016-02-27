@@ -2,6 +2,8 @@ import React from 'react'
 import NewTodo from '../components/new_todo'
 import Todos from '../components/todos'
 import TodosCounter from '../components/todos_counter'
+import { addTodo, newTodoChange } from '../actions'
+import reducer from '../reducers'
 
 export default class App extends React.Component {
   constructor() {
@@ -20,7 +22,9 @@ export default class App extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({newTodo: event.target.value})
+    const action = newTodoChange(event.target.value)
+    const newState = reducer(this.state, action)
+    this.setState(newState)
   }
 
   handleKeyDown(event) {
@@ -34,20 +38,18 @@ export default class App extends React.Component {
     const newTodo = this.state.newTodo.trim()
 
     if (newTodo) {
-    	this.setState({ newTodo: '' })
       this.addTodo(newTodo)
     }
   }
 
   addTodo(text) {
-    const todos = this.state.todos
-
-    todos.push({
-      id:   todos.length + 1,
+    const todo = {
+      id:   this.state.todos.length + 1,
       text: text
-    })
-
-    this.setState({ todos: todos })
+    }
+    const action = addTodo(todo)
+    const newState = reducer(this.state, action)
+    this.setState(newState)
   }
 
   render() {

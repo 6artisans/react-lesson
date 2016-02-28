@@ -2,29 +2,21 @@ import React from 'react'
 import NewTodo from '../components/new_todo'
 import Todos from '../components/todos'
 import TodosCounter from '../components/todos_counter'
-import { addTodo, newTodoChange } from '../actions'
+import * as TodoActions from  '../actions'
 import reducer from '../reducers'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor() {
     super()
-    this.state = {
-      todos: [
-        {id: 1, text: "Welcome to React Lesson", completed: true},
-        {id: 2, text: "Kick off repository with lesson"},
-        {id: 3, text: "Run development server"}
-      ],
-      newTodo: ""
-    }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
   }
 
   handleChange(event) {
-    const action = newTodoChange(event.target.value)
-    const newState = reducer(this.state, action)
-    this.setState(newState)
+    this.props.newTodoChange(event.target.value)
   }
 
   handleKeyDown(event) {
@@ -35,21 +27,16 @@ export default class App extends React.Component {
 
     event.preventDefault()
 
-    const newTodo = this.state.newTodo.trim()
+    const newTodo = this.props.newTodo.trim()
 
     if (newTodo) {
-      this.addTodo(newTodo)
-    }
-  }
+      const todo = {
+        id:   this.props.todos.length + 1,
+        text: newTodo
+      }
 
-  addTodo(text) {
-    const todo = {
-      id:   this.state.todos.length + 1,
-      text: text
+      this.props.addTodo(todo)
     }
-    const action = addTodo(todo)
-    const newState = reducer(this.state, action)
-    this.setState(newState)
   }
 
   render() {
@@ -57,17 +44,17 @@ export default class App extends React.Component {
       <section className="todoapp">
         <header className="header">
           <h1>todos</h1>
-          <NewTodo value={this.state.newTodo}
+          <NewTodo value={this.props.newTodo}
                    onChange={this.handleChange}
                    onSubmit={this.handleKeyDown} />
         </header>
         <section className="main">
           <input className="toggle-all" type="checkbox" />
           <label htmlFor="toggle-all">Mark all as complete</label>
-          <Todos todos={this.state.todos} />
+          <Todos todos={this.props.todos} />
         </section>
         <footer className="footer">
-          <TodosCounter todos={this.state.todos} />
+          <TodosCounter todos={this.props.todos} />
           <ul className="filters">
             <li>
               <a href="#/" className="selected">All</a>
@@ -86,3 +73,16 @@ export default class App extends React.Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return state
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(TodoActions, dispatch)
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)

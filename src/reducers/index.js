@@ -1,21 +1,9 @@
-import { ADD_TODO, NEW_TODO_CHANGED } from '../actions'
+import newTodo from './new_todo'
+import todos from './todos'
 
 export default (state, action) => {
-  switch(action.type) {
-    case ADD_TODO:
-      const todos = state.todos
-      todos.push(action.data.todo)
-
-      return Object.assign({}, state, {
-        todos,
-        newTodo: ""
-      })
-
-    case NEW_TODO_CHANGED:
-      return Object.assign({}, state, {
-        newTodo: action.data.newTodo
-      })
+  return {
+    newTodo: newTodo(state.newTodo, action),
+    todos:   todos(state.todos, action)
   }
-
-  return state
 }

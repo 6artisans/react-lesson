@@ -345,6 +345,19 @@ html .clear-completed:active {
 	text-decoration: underline;
 }
 
+.info .separator {
+	padding: 0 5px;
+}
+
+.info .active {
+	font-weight: bold;
+}
+
+.about .footer {
+	height: 0;
+	margin: 0;
+	padding: 0;
+}
 /*
 	Hack to remove background from Mobile Safari.
 	Can't use it globally since it destroys checkboxes in Firefox

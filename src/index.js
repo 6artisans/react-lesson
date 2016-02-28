@@ -2,9 +2,15 @@ import './index.css'
 
 import React from 'react'
 import {render} from 'react-dom'
+// Application
+import Layout from './containers/layout'
 import App from './containers/app'
+import About from './containers/about'
+
 import { Provider } from 'react-redux'
 import { configureStore } from './store'
+// Router
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 const initialState = {
   todos: [
@@ -19,7 +25,12 @@ const store = configureStore(initialState)
 
 render(
   <Provider store={store}>
-    <App />
+    <Router history={browserHistory}>
+      <Route path='/' component={Layout}>
+        <IndexRoute component={App} />
+        <Route path='about' component={About} />
+      </Route>
+    </Router>
   </Provider>,
   document.getElementById("todos-app-root")
 )

@@ -28,7 +28,9 @@ render(
     <Router history={browserHistory}>
       <Route path='/' component={Layout}>
         <IndexRoute component={App} />
-        <Route path='about' component={About} />
+        <Route path='/about' component={About} />
+        {/* TODO: do option param like in rails path='(/:filter)' */}
+        <Route path='/:filter' component={App} />
       </Route>
     </Router>
   </Provider>,

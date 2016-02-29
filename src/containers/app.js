@@ -6,6 +6,7 @@ import * as TodoActions from  '../actions'
 import reducer from '../reducers'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { IndexLink, Link } from 'react-router'
 
 class App extends React.Component {
   constructor() {
@@ -54,16 +55,16 @@ class App extends React.Component {
           <Todos todos={this.props.todos} />
         </section>
         <footer className="footer">
-          <TodosCounter todos={this.props.todos} />
+          <TodosCounter count={this.props.activeTodosCount} />
           <ul className="filters">
             <li>
-              <a href="#/" className="selected">All</a>
+              <IndexLink to="/" activeClassName="selected">All</IndexLink>
             </li>
             <li>
-              <a href="#/active">Active</a>
+              <Link to="/active" activeClassName="selected">Active</Link>
             </li>
             <li>
-              <a href="#/completed">Completed</a>
+              <Link to="/completed" activeClassName="selected">Completed</Link>
             </li>
           </ul>
           <button className="clear-completed">Clear completed</button>
@@ -74,8 +75,26 @@ class App extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return state
+function mapStateToProps({ todos, newTodo }, props) {
+  const filter = props.routeParams.filter
+  const activeTodos = todos.filter(({ completed }) => !completed)
+  let filteredTodos
+
+  if(!filter) {
+    filteredTodos = todos
+  } else {
+    if(filter == "completed") {
+      filteredTodos = todos.filter(({ completed }) => completed)
+    } else {
+      filteredTodos = activeTodos
+    }
+  }
+
+  return {
+    newTodo,
+    todos: filteredTodos,
+    activeTodosCount: activeTodos.length
+  }
 }
 
 function mapDispatchToProps(dispatch) {

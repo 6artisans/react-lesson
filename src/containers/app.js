@@ -14,6 +14,7 @@ class App extends React.Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleRemoteTodo = this.handleRemoteTodo.bind(this)
   }
 
   handleChange(event) {
@@ -40,11 +41,25 @@ class App extends React.Component {
     }
   }
 
+  handleRemoteTodo(event) {
+    event.preventDefault()
+    this.props.fetchRemoteTodo()
+  }
+
   render() {
+    let addRemoteTodo
+
+    if(this.props.loadingTodo) {
+      addRemoteTodo = <span>Loding API</span>
+    } else {
+      addRemoteTodo = <a href="#" onClick={this.handleRemoteTodo}>Add remote TODO</a>
+    }
+
     return (
       <section className="todoapp">
         <header className="header">
           <h1>todos</h1>
+          {addRemoteTodo}
           <NewTodo value={this.props.newTodo}
                    onChange={this.handleChange}
                    onSubmit={this.handleKeyDown} />
@@ -75,7 +90,7 @@ class App extends React.Component {
   }
 }
 
-function mapStateToProps({ todos, newTodo }, props) {
+function mapStateToProps({ todos, newTodo, loadingTodo }, props) {
   const filter = props.routeParams.filter
   const activeTodos = todos.filter(({ completed }) => !completed)
   let filteredTodos
@@ -93,7 +108,8 @@ function mapStateToProps({ todos, newTodo }, props) {
   return {
     newTodo,
     todos: filteredTodos,
-    activeTodosCount: activeTodos.length
+    activeTodosCount: activeTodos.length,
+    loadingTodo
   }
 }
 
